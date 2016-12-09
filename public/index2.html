@@ -1,0 +1,43 @@
+<html ng-app="myapp">
+<head>
+    <title>Hello AngularJS</title>
+    <script src="angular.js"></script>
+    <script>
+        var myapp = angular.module('myapp', []);
+        myapp.controller("HelloController", function($scope, $rootScope, $http, $interval) {
+            $rootScope.text = 'Hello world';
+            $scope.greeting = "";
+            $scope.update = function() {
+                if ($scope.name) {
+                    $http.get("/greeting",
+                        {params:
+                            {name: $scope.name}
+                        })
+                        .success(function(res) {
+                            $scope.greeting = res;
+                        });
+                }
+            };
+            $interval($scope.update, 200);
+        });
+//        myapp.controller('ChildCtrl', function ($scope) {
+//            $scope.say = function () {
+//                console.log($scope);
+//            }
+//        })
+    </script>
+</head>
+<body>
+<span ng-bind="text"></span>
+<div ng-controller="HelloController">
+    Your name: <input ng-model="name">
+    <button ng-click="update()">update</button>
+    <p>{{greeting}}</p>
+    <!--<div ng-controller="ChildCtrl">-->
+        <!--<button ng-click="say()">-->
+            <!--Click me!-->
+        <!--</button>-->
+    <!--</div>-->
+</div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myapp">
+<head>
+    <title>Notes application</title>
+    <style>
+        .note {
+            background-color:#EEE;
+            padding:5px;
+            width:80%;
+            border:1px solid black;
+            margin:10px;
+        }
+    </style>
+    <script src="material/angular.js"></script>
+    <script>
+        var module = angular.module('myapp', []);
+        module.controller('NotesController',
+            function($scope) {
+                $scope.notes = [];
+                $scope.update =  function () {
+                    $scope.notes = [
+                        {text: "First note"},
+                        {text: "Second note"},
+                        {text: "Third note"}
+                    ];
+                }
+            });
+    </script>
+</head>
+<body ng-controller="NotesController">
+    <div ng-repeat="note in notes">
+        <p class="note">{{note.text}}</p>
+    </div>
+    <button ng-click="update()">Update</button>
+</body>
+</html>
